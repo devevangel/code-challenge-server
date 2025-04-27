@@ -2,3 +2,4 @@ node_modules/
 coverage/
 db/db.json
 .env
+.env
