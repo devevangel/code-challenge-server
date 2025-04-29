@@ -328,10 +328,12 @@ GET /api/products?cost=1000&costOp=lte
 - **Request Body**:
   ```json
   {
-    "name": "Sample Product",
-    "unitCost": 100,
-    "totalSales": 20,
-    "inventory": 50
+    "name": "Zero Fanta77",
+    "unitCost": 50,
+    "totalSales": 400,
+    "inventory": 100,
+    "description": "Removal of Drainage Device from",
+    "imageUrl": "http://dummyimage.com/197x100.png/cc0000/f54654777"
   }
   ```
 
