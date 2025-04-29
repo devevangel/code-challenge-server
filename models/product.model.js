@@ -22,7 +22,7 @@ export const getProductById = async (id) => {
 
 /**
  * Creates a new product in the database.
- * @param {{ name: string, unitCost: number, totalSales: number, inventory: number }} productData - Data for the product to be created.
+ * @param {{ name: string, unitCost: number, totalSales: number, inventory: number, description: string, imageUrl: string }} productData - Data for the product to be created.
  * @returns {Object} - The newly created product.
  */
 export const createProduct = async ({
@@ -30,6 +30,8 @@ export const createProduct = async ({
   unitCost,
   totalSales,
   inventory,
+  description,
+  imageUrl,
 }) => {
   await db.read();
   const newProduct = {
@@ -38,6 +40,8 @@ export const createProduct = async ({
     unitCost,
     totalSales,
     inventory,
+    description,
+    imageUrl,
   };
 
   db.data.products.push(newProduct);

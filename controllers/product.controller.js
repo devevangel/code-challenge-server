@@ -87,13 +87,16 @@ export const getProduct = async (req, res, next) => {
  */
 export const addProduct = async (req, res, next) => {
   try {
-    const { name, unitCost, totalSales, inventory } = req.body;
+    const { name, unitCost, totalSales, inventory, description, imageUrl } =
+      req.body;
 
     if (
       !name ||
       unitCost == undefined ||
       totalSales == undefined ||
-      inventory === undefined
+      inventory === undefined ||
+      description === undefined ||
+      imageUrl === undefined
     )
       throw new BadRequestError("All fields are required");
 
@@ -102,6 +105,8 @@ export const addProduct = async (req, res, next) => {
       unitCost: Number(unitCost),
       totalSales: Number(totalSales),
       inventory: Number(inventory),
+      description,
+      imageUrl,
     });
 
     if (!newProduct) throw new BadRequestError("Failed to create product");
@@ -131,6 +136,7 @@ export const updateProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
     const updates = req.body;
+
     if (!id) throw new BadRequestError("Product ID is required");
 
     const updatedProduct = await model.updateProductById(id, updates);

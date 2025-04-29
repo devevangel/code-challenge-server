@@ -30,7 +30,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Zero Fanta77\",\n    \"unitCost\": 50, \n    \"totalSales\": 400, \n    \"inventory\": 100\n}",
+					"raw": "{\n\t\"name\": \"Zero Fanta77\",\n    \"unitCost\": 50, \n    \"totalSales\": 400, \n    \"inventory\": 100,\n    \"description\": \"Removal of Drainage Device from\",\n      \"imageLink\": \"http://dummyimage.com/197x100.png/cc0000/f54654777\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"

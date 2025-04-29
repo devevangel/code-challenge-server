@@ -15,6 +15,8 @@ describe("Product Routes", () => {
       unitCost: 10,
       totalSales: 0,
       inventory: 10,
+      description: "Test description",
+      imageUrl: "https://example.com/image.jpg",
     };
 
     const res = await request(app)
@@ -28,6 +30,8 @@ describe("Product Routes", () => {
     expect(res.body.data.unitCost).toBe(newProduct.unitCost);
     expect(res.body.data.totalSales).toBe(newProduct.totalSales);
     expect(res.body.data.inventory).toBe(newProduct.inventory);
+    expect(res.body.data.description).toBe(newProduct.description);
+    expect(res.body.data.imageUrl).toBe(newProduct.imageUrl);
   });
 
   test("GET /api/products should get all products", async () => {
@@ -36,6 +40,8 @@ describe("Product Routes", () => {
       unitCost: 10,
       totalSales: 0,
       inventory: 10,
+      description: "Test description",
+      imageUrl: "https://example.com/image.jpg",
     };
 
     await request(app)
@@ -51,6 +57,10 @@ describe("Product Routes", () => {
     expect(res.body.data[0]).toHaveProperty("id");
     expect(res.body.data[0].name).toBe(newProduct.name);
     expect(res.body.data[0].unitCost).toBe(newProduct.unitCost);
+    expect(res.body.data[0].totalSales).toBe(newProduct.totalSales);
+    expect(res.body.data[0].inventory).toBe(newProduct.inventory);
+    expect(res.body.data[0].description).toBe(newProduct.description);
+    expect(res.body.data[0].imageUrl).toBe(newProduct.imageUrl);
   });
 
   test("GET /api/products/:id should get a product by id", async () => {
@@ -59,6 +69,8 @@ describe("Product Routes", () => {
       unitCost: 10,
       totalSales: 0,
       inventory: 10,
+      description: "Test description",
+      imageUrl: "https://example.com/image.jpg",
     };
 
     const createdProduct = await request(app)
@@ -76,6 +88,8 @@ describe("Product Routes", () => {
     expect(res.body.data.unitCost).toBe(newProduct.unitCost);
     expect(res.body.data.totalSales).toBe(newProduct.totalSales);
     expect(res.body.data.inventory).toBe(newProduct.inventory);
+    expect(res.body.data.description).toBe(newProduct.description);
+    expect(res.body.data.imageUrl).toBe(newProduct.imageUrl);
   });
 
   test("PUT /api/products/:id should update a product by id", async () => {
@@ -84,6 +98,8 @@ describe("Product Routes", () => {
       unitCost: 10,
       totalSales: 0,
       inventory: 10,
+      description: "Test description",
+      imageUrl: "https://example.com/image.jpg",
     };
 
     const createdProduct = await request(app)
@@ -97,6 +113,8 @@ describe("Product Routes", () => {
       unitCost: 20,
       totalSales: 5,
       inventory: 15,
+      description: "Updated description",
+      imageUrl: "https://example.com/updated-image.jpg",
     };
 
     const update = await request(app)
@@ -110,6 +128,8 @@ describe("Product Routes", () => {
     expect(update.body.data.unitCost).toBe(updatedProduct.unitCost);
     expect(update.body.data.totalSales).toBe(updatedProduct.totalSales);
     expect(update.body.data.inventory).toBe(updatedProduct.inventory);
+    expect(update.body.data.description).toBe(updatedProduct.description);
+    expect(update.body.data.imageUrl).toBe(updatedProduct.imageUrl);
 
     const getRes = await request(app).get(`/api/products/${productId}`);
     expect(getRes.status).toBe(200);
@@ -118,6 +138,8 @@ describe("Product Routes", () => {
     expect(getRes.body.data.unitCost).toBe(updatedProduct.unitCost);
     expect(getRes.body.data.totalSales).toBe(updatedProduct.totalSales);
     expect(getRes.body.data.inventory).toBe(updatedProduct.inventory);
+    expect(getRes.body.data.description).toBe(updatedProduct.description);
+    expect(getRes.body.data.imageUrl).toBe(updatedProduct.imageUrl);
   });
 
   test("DELETE /api/products/:id should delete a product by id", async () => {
@@ -126,6 +148,8 @@ describe("Product Routes", () => {
       unitCost: 10,
       totalSales: 0,
       inventory: 10,
+      description: "Test description",
+      imageUrl: "https://example.com/image.jpg",
     };
 
     const createdProduct = await request(app)
@@ -149,10 +173,17 @@ describe("Product Routes", () => {
       unitCost: 1000,
       totalSales: 1500,
       inventory: 20,
+      description: "Laptop description",
+      imageUrl: "https://example.com/laptop.jpg",
     });
-    await request(app)
-      .post("/api/products")
-      .send({ name: "Phone", unitCost: 1000, totalSales: 1000, inventory: 50 });
+    await request(app).post("/api/products").send({
+      name: "Phone",
+      unitCost: 1000,
+      totalSales: 1000,
+      inventory: 50,
+      description: "Phone description",
+      imageUrl: "https://example.com/phone.jpg",
+    });
 
     const res = await request(app).get("/api/products?name=Laptop");
 
@@ -168,10 +199,17 @@ describe("Product Routes", () => {
       unitCost: 1000,
       totalSales: 1500,
       inventory: 20,
+      description: "Laptop description",
+      imageUrl: "https://example.com/laptop.jpg",
     });
-    await request(app)
-      .post("/api/products")
-      .send({ name: "Phone", unitCost: 1500, totalSales: 1000, inventory: 50 });
+    await request(app).post("/api/products").send({
+      name: "Phone",
+      unitCost: 1500,
+      totalSales: 1000,
+      inventory: 50,
+      description: "Phone description",
+      imageUrl: "https://example.com/phone.jpg",
+    });
 
     const res = await request(app).get("/api/products?cost=1000&costOp=lte");
 
@@ -182,12 +220,22 @@ describe("Product Routes", () => {
   });
 
   test("GET /api/products with sales filter should filter products by sales", async () => {
-    await request(app)
-      .post("/api/products")
-      .send({ name: "Laptop", unitCost: 800, totalSales: 50, inventory: 20 });
-    await request(app)
-      .post("/api/products")
-      .send({ name: "Phone", unitCost: 500, totalSales: 80, inventory: 30 });
+    await request(app).post("/api/products").send({
+      name: "Laptop",
+      unitCost: 800,
+      totalSales: 50,
+      inventory: 20,
+      description: "Laptop description",
+      imageUrl: "https://example.com/laptop.jpg",
+    });
+    await request(app).post("/api/products").send({
+      name: "Phone",
+      unitCost: 500,
+      totalSales: 80,
+      inventory: 30,
+      description: "Phone description",
+      imageUrl: "https://example.com/phone.jpg",
+    });
 
     const res = await request(app).get("/api/products?sales=60&salesOp=gt");
 

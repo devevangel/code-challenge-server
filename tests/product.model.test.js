@@ -21,6 +21,8 @@ describe("Product Model", () => {
       unitCost: 10,
       totalSales: 0,
       inventory: 10,
+      description: "Test description",
+      imageUrl: "https://example.com/image.jpg",
     });
 
     expect(newProduct).toHaveProperty("id");
@@ -28,6 +30,8 @@ describe("Product Model", () => {
     expect(newProduct.unitCost).toBe(10);
     expect(newProduct.totalSales).toBe(0);
     expect(newProduct.inventory).toBe(10);
+    expect(newProduct.description).toBe("Test description");
+    expect(newProduct.imageUrl).toBe("https://example.com/image.jpg");
 
     const allProducts = await getAllProducts();
     expect(allProducts.length).toBe(1);
@@ -40,6 +44,8 @@ describe("Product Model", () => {
       unitCost: 10,
       totalSales: 0,
       inventory: 10,
+      description: "Test description",
+      imageUrl: "https://example.com/image.jpg",
     });
 
     const deleted = await deleteProductById(newProduct.id);
@@ -55,6 +61,8 @@ describe("Product Model", () => {
       unitCost: 10,
       totalSales: 0,
       inventory: 10,
+      description: "Test description",
+      imageUrl: "https://example.com/image.jpg",
     });
     const product = await getProductById(newProduct.id);
     expect(product).not.toBeNull();
@@ -62,6 +70,8 @@ describe("Product Model", () => {
     expect(product.unitCost).toBe(10);
     expect(product.totalSales).toBe(0);
     expect(product.inventory).toBe(10);
+    expect(product.description).toBe("Test description");
+    expect(product.imageUrl).toBe("https://example.com/image.jpg");
   });
 
   test("should update a product successfully", async () => {
@@ -70,6 +80,8 @@ describe("Product Model", () => {
       unitCost: 10,
       totalSales: 0,
       inventory: 10,
+      description: "Test description",
+      imageUrl: "https://example.com/image.jpg",
     });
 
     const updatedProduct = await updateProductById(newProduct.id, {
@@ -81,6 +93,8 @@ describe("Product Model", () => {
     expect(updatedProduct.unitCost).toBe(10);
     expect(updatedProduct.totalSales).toBe(0);
     expect(updatedProduct.inventory).toBe(10);
+    expect(updatedProduct.description).toBe("Test description");
+    expect(updatedProduct.imageUrl).toBe("https://example.com/image.jpg");
 
     const product = await getProductById(newProduct.id);
     expect(product.name).toBe("Updated Product");
