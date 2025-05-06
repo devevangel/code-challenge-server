@@ -12,7 +12,15 @@ import { BadRequestError, NotFoundError } from "../utils/index.js";
  */
 export const listProducts = async (req, res, next) => {
   try {
-    const { name, cost, costOp, sales, salesOp } = req.query;
+    const {
+      name,
+      cost,
+      costOp,
+      sales,
+      salesOp,
+      page = 1,
+      limit = 10,
+    } = req.query;
     let data;
 
     if (name) {
@@ -37,7 +45,7 @@ export const listProducts = async (req, res, next) => {
     if (process.env.NODE_ENV === "development") {
       console.error(error);
     }
-    next(new BadRequestError("Failed to retrieve products"));
+    next(error);
   }
 };
 
@@ -72,7 +80,7 @@ export const getProduct = async (req, res, next) => {
       console.error(error);
     }
 
-    next(new BadRequestError("Failed to retrieve product"));
+    next(error);
   }
 };
 
@@ -109,7 +117,10 @@ export const addProduct = async (req, res, next) => {
       imageUrl,
     });
 
-    if (!newProduct) throw new BadRequestError("Failed to create product");
+    if (!newProduct)
+      throw new BadRequestError(
+        "Failed to create product, please check that product does not already exist"
+      );
 
     res.status(201).json({
       status: "success",
@@ -119,7 +130,7 @@ export const addProduct = async (req, res, next) => {
     if (process.env.NODE_ENV === "development") {
       console.error(error);
     }
-    next(new BadRequestError("Failed to create product"));
+    next(error);
   }
 };
 
@@ -150,7 +161,7 @@ export const updateProduct = async (req, res, next) => {
     if (process.env.NODE_ENV === "development") {
       console.error(error);
     }
-    next(new BadRequestError("Failed to update product"));
+    next(error);
   }
 };
 
@@ -180,6 +191,6 @@ export const deleteProduct = async (req, res, next) => {
     if (process.env.NODE_ENV === "development") {
       console.error(error);
     }
-    next(new BadRequestError("Failed to delete product"));
+    next(error);
   }
 };

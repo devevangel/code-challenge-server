@@ -33,6 +33,11 @@ export const createProduct = async ({
   description,
   imageUrl,
 }) => {
+  const products = await getAllProducts();
+
+  const existingProduct = products.find((product) => product.name === name);
+  if (existingProduct) return;
+
   await db.read();
   const newProduct = {
     id: nanoid(),

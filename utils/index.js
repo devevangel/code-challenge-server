@@ -18,7 +18,7 @@ export class AppError extends Error {
  * @param {string} [message="Bad Request"] - Error message.
  */
 export class BadRequestError extends AppError {
-  constructor(message = "Bad Request") {
+  constructor(message) {
     super(message, 400);
   }
 }
